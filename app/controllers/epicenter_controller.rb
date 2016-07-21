@@ -3,6 +3,7 @@ class EpicenterController < ApplicationController
 	before_filter :authenticate_user!, except: [:show_user]
 
   def feed
+    @tweet = Tweet.new
   	@following_tweets = []
   	Tweet.all.each do |tweet|
   		if current_user.following.include?(tweet.user_id) || current_user.id == tweet.user_id
@@ -26,6 +27,33 @@ class EpicenterController < ApplicationController
   	current_user.save
   	redirect_to :back
   end
+
+  def all_users
+    @users = User.all
+  end
+
+  def followers
+    @users = []
+    User.all.each do |user|
+      if user.following.include?(current_user.id)
+        @users.push(user)
+      end
+    end
+  end
+
+  def following
+    @users = []
+    User.all.each do |user|
+      if current_user.following.include?(user.id)
+        @users.push(user)
+      end
+    end
+  end
+
+  def tag_tweets
+    @tag = Tag.find(params[:id])
+  end
+
 end
 
 

@@ -1,15 +1,28 @@
 <h1>@<%= current_user.username %>'s Twitter Feed</h1>
-<p>Here is what your friends are saying:</p>
 
-<div>
-	<% @following_tweets.each do |tweet| %>
-		<div>
-			<p>
-				<%= link_to "#{tweet.user.name} @#{tweet.user.username}", show_user_path(id: tweet.user.id) %>
-			</p>
-			<p>
-				<%= tweet.message %>
-			</p>
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-4">
+		<div id="tweet_form">
+			<%= render 'tweets/form' %>
 		</div>
-	<% end %>
+		<div id="feed_area">
+			<% @following_tweets.each do |tweet| %>
+				<div class="row">
+					<div class="col-md-1">
+						<%= image_tag tweet.user.avatar.url, class: "user-avatar" %>
+					</div>
+					<div class="col-md-8 tweet-area">
+						<p>
+							<%= link_to "#{tweet.user.name} @#{tweet.user.username}", show_user_path(id: tweet.user.id) %> &#8226; <span class="time-ago"><%= time_ago_in_words(tweet.created_at) %></span>
+						</p>
+						<p>
+							<%= tweet.message.html_safe %>
+						</p>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
 </div>

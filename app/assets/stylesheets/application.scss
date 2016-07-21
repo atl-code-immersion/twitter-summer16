@@ -18,8 +18,26 @@
 @import "bootstrap";
 @import "font-awesome";
 
+a {
+	color: black;
+}
 
+a:hover {
+	text-decoration: none;
+}
 
+.time-ago {
+	color: #8899a6;
+}
+
+.user-avatar {
+	height: 50px;
+	width: 50px;
+}
+
+.tweet-area {
+	padding-left: 0px;
+}
 
 
 
